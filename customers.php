@@ -31,13 +31,12 @@ if (!$order_by) {
 
 //Get DB instance. i.e instance of MYSQLiDB Library
 $db = getDbInstance();
-$select = array('id', 'f_name', 'l_name', 'gender', 'phone', 'created_at', 'updated_at');
+$select = array('id', 'username', 'value');
 
 //Start building query according to input parameters.
 // If search string
 if ($search_string) {
-	$db->where('f_name', '%' . $search_string . '%', 'like');
-	$db->orwhere('l_name', '%' . $search_string . '%', 'like');
+	$db->where('username', '%' . $search_string . '%', 'like');
 }
 
 //If order by option selected
@@ -49,7 +48,7 @@ if ($order_by) {
 $db->pageLimit = $pagelimit;
 
 // Get result of the query.
-$rows = $db->arraybuilder()->paginate('customers', $page, $select);
+$rows = $db->arraybuilder()->paginate('radcheck', $page, $select);
 $total_pages = $db->totalPages;
 
 include BASE_PATH . '/includes/header.php';
@@ -58,7 +57,7 @@ include BASE_PATH . '/includes/header.php';
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-6">
-            <h1 class="page-header">Customers</h1>
+            <h1 class="page-header">accounts</h1>
         </div>
         <div class="col-lg-6">
             <div class="page-action-links text-right">
@@ -103,6 +102,7 @@ if ($order_by == 'Desc') {
 
     <div id="export-section">
         <a href="export_customers.php"><button class="btn btn-sm btn-primary">Export to CSV <i class="glyphicon glyphicon-export"></i></button></a>
+        <a href="export_PDF.php"><button class="btn btn-sm btn-primary">Export to PDF <i class="glyphicon glyphicon-print"></i></button></a>
     </div>
 
     <!-- Table -->
@@ -110,22 +110,21 @@ if ($order_by == 'Desc') {
         <thead>
             <tr>
                 <th width="5%">ID</th>
-                <th width="45%">Name</th>
-                <th width="20%">Gender</th>
-                <th width="20%">Phone</th>
-                <th width="10%">Actions</th>
+                <th width="45%">Username</th>
+                <th width="30%">password</th>
+                <th width="15%">Actions</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($rows as $row): ?>
             <tr>
                 <td><?php echo $row['id']; ?></td>
-                <td><?php echo xss_clean($row['f_name'] . ' ' . $row['l_name']); ?></td>
-                <td><?php echo xss_clean($row['gender']); ?></td>
-                <td><?php echo xss_clean($row['phone']); ?></td>
+                <td><?php echo xss_clean($row['username']) ; ?></td>
+                <td><?php echo xss_clean($row['value']); ?></td>
                 <td>
                     <a href="edit_customer.php?customer_id=<?php echo $row['id']; ?>&operation=edit" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
                     <a href="#" class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id']; ?>"><i class="glyphicon glyphicon-trash"></i></a>
+                    <a href="export_PDF.php?username=<?php echo $row['username']; ?>" class="btn btn-success"><i class="glyphicon glyphicon-print"></i></a>
                 </td>
             </tr>
             <!-- Delete Confirmation Modal -->
@@ -140,7 +139,7 @@ if ($order_by == 'Desc') {
                             </div>
                             <div class="modal-body">
                                 <input type="hidden" name="del_id" id="del_id" value="<?php echo $row['id']; ?>">
-                                <p>Are you sure you want to delete this row?</p>
+                                <p>Are you sure you want to delete: <?php echo $row['username']; ?></p>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-default pull-left">Yes</button>

@@ -21,11 +21,8 @@ class Costumers
     public function setOrderingValues()
     {
         $ordering = [
-            'id' => 'ID',
-            'f_name' => 'First Name',
-            'l_name' => 'Last Name',
-            'gender' => 'Gender',
-            'phone' => 'Phone',
+            'username' => 'username',
+            'password' => 'password',
             'created_at' => 'Created at',
             'updated_at' => 'Updated at'
         ];

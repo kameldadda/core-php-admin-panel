@@ -18,7 +18,8 @@
         <link href="assets/js/metisMenu/metisMenu.min.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="assets/css/sb-admin-2.css" rel="stylesheet">
+        <!-- <link href="assets/css/sb-admin-2.css" rel="stylesheet" type="text/css"> -->
+        <link rel="stylesheet" href="assets/css/style.css">
         <!-- Custom Fonts -->
         <link href="assets/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -81,13 +82,24 @@
                                 </li>
 
                                 <li <?php echo (CURRENT_PAGE == "customers.php" || CURRENT_PAGE == "add_customer.php") ? 'class="active"' : ''; ?>>
-                                    <a href="#"><i class="fa fa-user-circle fa-fw"></i> Customers<span class="fa arrow"></span></a>
+                                    <a href="#"><i class="fa fa-user-circle fa-fw"></i> accounts <span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level">
                                         <li>
                                             <a href="customers.php"><i class="fa fa-list fa-fw"></i>List all</a>
                                         </li>
                                     <li>
                                         <a href="add_customer.php"><i class="fa fa-plus fa-fw"></i>Add New</a>
+                                    </li>
+                                    </ul>
+                                </li>
+                                <li <?php echo (CURRENT_PAGE == "groups.php" || CURRENT_PAGE == "add_groups.php") ? 'class="active"' : ''; ?>>
+                                    <a href="#"><i class="fa fa-user-circle fa-fw"></i> groups <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a href="groups.php"><i class="fa fa-list fa-fw"></i>List all</a>
+                                        </li>
+                                    <li>
+                                        <a href="add_groups.php"><i class="fa fa-plus fa-fw"></i>Add New</a>
                                     </li>
                                     </ul>
                                 </li>
